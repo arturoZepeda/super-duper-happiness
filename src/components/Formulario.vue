@@ -1,10 +1,12 @@
 <script setup>
 import { reactive , ref } from 'vue';
 import Alerta from './Alerta.vue';
+
 const busqueda = reactive({
     ciudad: '',
     pais: ''
 });
+const emit = defineEmits(['obtener-clima']);
 
 const error = ref('');
 
@@ -22,9 +24,10 @@ const consultarClima = () =>{
     if(Object.values(busqueda).includes('')){
         error.value = 'Todos los campos son obligatorios';
         return;
-    }
+    }    
     error.value = '';
-}
+    emit('obtener-clima', busqueda);
+    }
 </script>
 
 <template>
