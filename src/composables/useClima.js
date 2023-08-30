@@ -3,8 +3,13 @@ import { ref, computed } from 'vue';
 export default function useClima() {
     //creo la variable para almacenar el clima
     const clima = ref('');
-   const obtenerClima = async ({ciudad, pais}) => {
+    const cargando= ref(false);
+    const error = ref('');
+    const obtenerClima = async ({ciudad, pais}) => {
         const apikey = import.meta.env.VITE_API_KEY;
+        cargando.value = true;
+        clima.value = {};
+        error.value = '';
         /*
         //Version 1
         //genero consulta para obtener el latitud y longitud de la ciudad
@@ -33,8 +38,10 @@ export default function useClima() {
             //extraigo temperatura
             clima.value = resultado2;
             
-        } catch (error) {
-            console.log(error);
+        } catch {
+            error.value = 'Ciudad no encontrada';
+        } finally {
+            cargando.value = false;
         }
 
    }
@@ -45,6 +52,8 @@ export default function useClima() {
     return {
         obtenerClima, 
         clima,
-        mostrarClima
+        mostrarClima,
+        cargando,
+        error
     }
 }
