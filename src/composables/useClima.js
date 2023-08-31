@@ -27,12 +27,12 @@ export default function useClima() {
         //Version 2 con axios
         try{
             //genero consulta para obtener el latitud y longitud de la ciudad con axios
-            const url = `http://api.openweathermap.org/geo/1.0/direct?q=${ciudad},${pais}&limit=1&appid=${apikey}`;
+            const url = `https://api.openweathermap.org/geo/1.0/direct?q=${ciudad},${pais}&limit=1&appid=${apikey}`;
             const respuesta = await axios.get(url);
             //deestructuro latitud y longitud
             const {lat, lon} = respuesta.data[0];
             //genero consulta para obtener el clima
-            const url2 = `http://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=metric&appid=${apikey}`;
+            const url2 = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=metric&appid=${apikey}`;
             //deestructuro data en resultado
             const {data: resultado2} = await axios.get(url2);
             //extraigo temperatura
